@@ -1,35 +1,35 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
-	boo := validAnagram("string", "string")
-	fmt.Println(boo)
+	strs := []string{"eat", "tea", "tan", "ate", "nat", "bat"}
+	fmt.Println(groupValidAnagrams(strs))
 
 }
 
 func groupValidAnagrams(strs []string) [][]string {
-
-	return [][]string{{""}}
-
-}
-
-func validAnagram(s, t string) bool {
-	m := make(map[byte]int)
-
-	if len(s) != len(t) {
-		return false
+	if len(strs) < 2 {
+		return [][]string{strs}
 	}
-	for i := range s {
-		m[s[i]]++
-
-		m[t[i]]--
-	}
-
-	for key := range m {
-		if m[key] != 0 {
-			return false
+	m := make(map[[26]int][]string)
+	for _, str := range strs {
+		var count [26]int
+		for _, c := range str {
+			count[int(c)-97]++
 		}
+		m[count] = append(m[count], str)
 	}
-	return true
+	aofa := make([][]string, len(m))
+	i := 0
+	for key := range m {
+		var keySlice []string
+		keySlice = m[key]
+		aofa[i] = keySlice
+		i++
+	}
+
+	return aofa
 }
