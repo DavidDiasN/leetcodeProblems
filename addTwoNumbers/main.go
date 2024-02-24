@@ -31,44 +31,31 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	for l1 != nil || l2 != nil {
 		lastCarry := carryOver
 		carryOver = 0
+		var val1 int
+		var val2 int
 
-		if l2 == nil {
-			total := l1.Val + lastCarry
-			if total > 9 {
-				iterateMyList.Val = total % 10
-				carryOver = 1
-			} else {
-				iterateMyList.Val = total
-			}
-			l1 = l1.Next
-
-		} else if l1 == nil {
-
-			total := l2.Val + lastCarry
-			if total > 9 {
-				iterateMyList.Val = total % 10
-				carryOver = 1
-			} else {
-				iterateMyList.Val = total
-			}
-			l2 = l2.Next
-
+		if l1 == nil {
+			val1 = 0
+			val2 = l2.Val
+		} else if l2 == nil {
+			val2 = 0
+			val1 = l1.Val
 		} else {
-			val1 := l1.Val
-			val2 := l2.Val
-			total := val1 + val2 + lastCarry
-
-			if total > 9 {
-				carryOver = 1
-				iterateMyList.Val = total % 10
-			} else {
-				iterateMyList.Val = total
-			}
-
-			l1 = l1.Next
-			l2 = l2.Next
-
+			val1 = l1.Val
+			val2 = l2.Val
 		}
+
+		total := val1 + val2 + lastCarry
+
+		if total > 9 {
+			carryOver = 1
+			iterateMyList.Val = total % 10
+		} else {
+			iterateMyList.Val = total
+		}
+
+		l1 = l1.Next
+		l2 = l2.Next
 
 		if l1 != nil || l2 != nil {
 			nextNode := &ListNode{}
