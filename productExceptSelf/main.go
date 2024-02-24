@@ -23,8 +23,6 @@ func productExceptSelf(nums []int) []int {
 	for i := l - 1; i >= 0; i-- {
 		outputArray[i] = outputArray[i] * accu
 		accu = nums[i] * accu
-
 	}
-
 	return outputArray
 }
