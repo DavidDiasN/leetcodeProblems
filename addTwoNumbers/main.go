@@ -11,19 +11,6 @@ type ListNode struct {
 
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 
-	if l1.Next == nil && l2.Next == nil {
-		total := l1.Val + l2.Val
-		if total < 10 {
-			return &ListNode{Val: total, Next: nil}
-		} else {
-			l1.Val = total / 10
-			l2.Val = total % 10
-			l2.Next = l1
-			return l2
-		}
-
-	}
-
 	myListNodeOne := &ListNode{Val: 0, Next: nil}
 	carryOver := 0
 	iterateMyList := myListNodeOne
@@ -53,9 +40,14 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		} else {
 			iterateMyList.Val = total
 		}
-
-		l1 = l1.Next
-		l2 = l2.Next
+		if l1 == nil {
+			l2 = l2.Next
+		} else if l2 == nil {
+			l1 = l1.Next
+		} else {
+			l1 = l1.Next
+			l2 = l2.Next
+		}
 
 		if l1 != nil || l2 != nil {
 			nextNode := &ListNode{}
@@ -69,6 +61,5 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	}
 
 	return myListNodeOne
-}
 
-// MULTIPLY BY PLACE, ITERATE THROUGH THEM SEPEATELY, THEN ITERATE THROUGH THE STRING YOU MAKE I GUESS
+}
