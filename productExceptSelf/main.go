@@ -13,32 +13,18 @@ func main() {
 }
 
 func productExceptSelf(nums []int) []int {
-	outputArray := make([]int, len(nums))
+	l := len(nums)
+	outputArray := make([]int, l)
+	outputArray[0] = 1
+	for i := 1; i < l; i++ {
+		outputArray[i] = outputArray[i-1] * nums[i-1]
+	}
+	accu := 1
+	for i := l - 1; i >= 0; i-- {
+		outputArray[i] = outputArray[i] * accu
+		accu = nums[i] * accu
 
-	total := 1
-	for i := range nums {
-		if nums[i] == 0 {
-			total *= 1
-		} else {
-			total *= nums[i]
-		}
 	}
 
-	for i := range outputArray {
-		outputArray[i] = total
-	}
-
-	for i := range outputArray {
-		if nums[i] == 0 {
-			for j := range nums {
-				if i != j {
-					outputArray[j] = 0
-				}
-			}
-		} else {
-			outputArray[i] /= nums[i]
-		}
-
-	}
 	return outputArray
 }
