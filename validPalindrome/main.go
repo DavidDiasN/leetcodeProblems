@@ -7,7 +7,13 @@ import (
 )
 
 func main() {
-	fmt.Println(validPalindrome("d  i<<<id"))
+	//	fmt.Println(validPalindrome("d  i<<<id"))
+	fmt.Println(int('A'))
+	fmt.Println(int('Z'))
+	fmt.Println(int('a'))
+	fmt.Println(int('z'))
+	fmt.Println(int('0'))
+	fmt.Println(int('9'))
 
 }
 
@@ -28,4 +34,33 @@ func validPalindrome(s string) bool {
 		}
 	}
 	return false
+}
+
+func neetValidPalindrome(s string) bool {
+	s = strings.ToLower(s)
+	l, r := 0, len(s)-1
+
+	for l < r {
+		if !isAlNum(int(s[l])) {
+			l++
+			continue
+		}
+		if !isAlNum(int(s[r])) {
+			r--
+			continue
+		}
+
+		if s[l] != s[r] {
+			return false
+		}
+		l++
+		r--
+	}
+
+	return true
+}
+
+func isAlNum(c int) bool {
+	return (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || (c >= 48 && c <= 57)
+
 }
