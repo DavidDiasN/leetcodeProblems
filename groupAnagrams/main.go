@@ -22,6 +22,7 @@ func groupValidAnagrams(strs []string) [][]string {
 		}
 		m[count] = append(m[count], str)
 	}
+
 	aofa := make([][]string, len(m))
 	i := 0
 	for key := range m {
