@@ -7,23 +7,34 @@ import (
 
 func main() {
 	fmt.Println("yee")
-	twi := []int{5, 2, 1}
-	sort.Sort(sort.IntSlice(twi))
-	fmt.Println(twi)
 
 }
 
-func threeSum(nums []int) [][]int {
+func neetThreeSum(nums []int) [][]int {
 	var result [][]int
-	lastPoint := 0
-	m := make(map[int]int)
 	sort.Sort(sort.IntSlice(nums))
 
-	for i := range nums {
-		if _, ok := m[nums[i]]; !ok {
-			m[nums[i]] = i
+	for i, val := range nums {
+		if i > 0 && val == nums[i-1] {
+			continue
+		}
+
+		l, r := i+1, len(nums)-1
+		for l < r {
+			total := val + nums[l] + nums[r]
+			if total > 0 {
+				r--
+			} else if total < 0 {
+				l++
+			} else {
+				result = append(result, []int{val, nums[l], nums[r]})
+				l++
+				for nums[l] == nums[l-1] && l < r {
+					l++
+				}
+			}
 		}
 
 	}
-
+	return result
 }
