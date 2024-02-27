@@ -8,26 +8,30 @@ func main() {
 }
 
 func reorderList(head *ListNode) {
-	nums := []int{}
-	i := 0
-	iter := head
-	for iter != nil {
-		nums = append(nums, iter.Val)
-		iter = iter.Next
-		i++
+	slow, fast := head, head.Next
+	// find positions
+	for fast != nil && fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next.Next
 	}
-	head = head.Next
-	b := 1
-	for b < i {
-		head.Val = nums[i-1]
-		if head.Next == nil {
-			break
-		}
-		head.Next.Val = nums[b]
-		head = head.Next.Next
-		b++
-		i--
-
+	// reverse second half
+	second := slow.Next
+	var prev *ListNode
+	prev = nil
+	slow.Next = nil
+	for second != nil {
+		tmp := second.Next
+		second.Next = prev
+		prev = second
+		second = tmp
+	}
+	// reorder the list
+	first, second := head, prev
+	for second != nil {
+		tmp1, tmp2 := first.Next, second.Next
+		first.Next = second
+		second.Next = tmp1
+		first, second = tmp1, tmp2
 	}
 
 }
