@@ -22,3 +22,22 @@ type ListNode struct {
 	Val  int
 	Next *ListNode
 }
+
+func hasCycleBetter(head *ListNode) bool {
+	if head == nil {
+			return false
+	}
+	slow, fast := head, head.Next
+
+	for fast != nil {
+			if fast.Next == nil {
+					return false
+			}
+			if slow == fast {
+					return true
+			}
+			slow = slow.Next
+			fast = fast.Next.Next
+	}
+	return false
+}
