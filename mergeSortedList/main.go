@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 
 }
@@ -12,36 +10,24 @@ type ListNode struct {
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	if list1 == nil && list2 == nil {
-		return nil
-	}
-	i1, i2 := list1, list2
-	newLL := &ListNode{}
-	newLLHead := newLL
-	for i1 != nil || i2 != nil {
-		if i1 == nil {
-			fmt.Println("i1 == nil")
-			newLL.Val = i2.Val
-			newLL.Next = i2.Next
-			return newLLHead
-		} else if i2 == nil {
-			newLL.Val = i1.Val
-			newLL.Next = i1.Next
-			fmt.Println("i2 == nil")
-			return newLLHead
-		}
-		if i1.Val > i2.Val {
-			newLL.Val = i2.Val
-			i2 = i2.Next
+	dummy := &ListNode{}
+	tail := dummy
+
+	for list1 != nil && list2 != nil {
+		if list1.Val < list2.Val {
+			tail.Next = list1
+			list1 = list1.Next
 		} else {
-			newLL.Val = i1.Val
-
-			i1 = i1.Next
+			tail.Next = list2
+			list2 = list2.Next
 		}
-		newLL.Next = &ListNode{}
-		newLL = newLL.Next
-
+		tail = tail.Next
 	}
-	fmt.Println("We got here")
-	return newLLHead
+
+	if list1 != nil {
+		tail.Next = list1
+	} else if list2 != nil {
+		tail.Next = list2
+	}
+	return dummy.Next
 }
